@@ -1,0 +1,75 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      # Install the tool for Sphinx
+      - name: Install Sphinx
+        run: python3 -m pip install -U - requirements.txt
+
+      # Run a pip list to see what tools are installed 
+      - name: pip list
+        run: python3 -m pip list
+
+      # Add the location of the install for sphinx to the github path 
+      - name: Add to path 
+        run: echo "/home/runners/.local/bin" >> $GITHUB_PATH
+        
+      # Run the make file 
+      - name: Build the pages
+        run: make html
+        
+      # Remove the docs folder 
+      - name: Remove docs folder
+        run: rm -r "./docs"
+
+      # Make the docs folder
+      - name: Make docs folder
+        run: mkdir "./docs"
+        
+      # Create a blank file to control the formating of the github page
+      - name: Create nojekyll file
+        run: touch ./docs/.nojekyll
+
+      # Move the files to docs
+      - name: Move Files
+        run: mv -f ./build/html/* ./docs
+
+      # Delete the build folder 
+      - name: Delete the build folder 
+        run: rm -r "./build"
+        
+      # Commit changes back to master branch 
+      - name: Commit Changes
+        run:  |
+          CONSOLEOUTPUT=$(git diff --name-only)
+          if [ "${CONSOLEOUTPUT}" ]
+          then
+            git config --global user.name "GithubAction"
+            cd docs
+            git add -A
+            git commit -m"Github Action updating the docs folder for publishing"
+            git push
+          fi 
+
+          
