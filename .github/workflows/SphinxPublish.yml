@@ -73,7 +73,6 @@ jobs:
           echo $(CONSOLEOUTPUT)
           echo $(ls)
           echo $(pwd)
-          echo (git diff --name-only) 
           if [ "${CONSOLEOUTPUT}" ]
           then
             git config --global user.name "GithubAction" 
