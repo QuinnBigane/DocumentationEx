@@ -25,7 +25,7 @@ jobs:
       
       # Install the tool for Sphinx
       - name: Install Sphinx
-        run: python3 -m pip install -U -requirements.txt
+        run: python3 -m pip install -U -r requirements.txt
 
       # Run a pip list to see what tools are installed 
       - name: pip list
