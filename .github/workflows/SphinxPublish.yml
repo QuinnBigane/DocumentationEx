@@ -70,6 +70,7 @@ jobs:
             git add -A
             git commit -m"Github Action updating the docs folder for publishing"
             git push
+            echo "hit"
           fi 
 
           
