@@ -68,11 +68,10 @@ jobs:
       - name: Commit changes
         # only run this step if there are files to commit 
         run: |
-          CONSOLEOUTPUT=$(git diff --name-only)
           echo $(git diff --name-only)
-          echo $(CONSOLEOUTPUT)
           echo $(ls)
           echo $(pwd)
+          CONSOLEOUTPUT=$(git diff --name-only)
           if [ "${CONSOLEOUTPUT}" ]
           then
             git config --global user.name "GithubAction" 
