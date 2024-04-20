@@ -6,4 +6,3 @@ Documentation on example documentation
 
 # Viewing Local Build
 **file:///C:/Directory/DocumentationEx/build/html/index.html**
-**C:/Directory/DocumentationEx/build/html/index.html**
