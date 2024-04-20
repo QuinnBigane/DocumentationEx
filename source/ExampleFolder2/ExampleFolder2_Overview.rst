@@ -5,7 +5,7 @@ Example Page 2
 This is test page 2
 
 .. code-block:: c 
-    
+
     //This is how you display some example c code
     uint8_t foo = 0;
     uint8_t bar = 1;
@@ -13,3 +13,6 @@ This is test page 2
     {
         foo += bar;
     }
+
+
+This is how
